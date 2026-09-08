@@ -3,98 +3,738 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Letter For You 💌</title>
+<title>WARNING 🖤</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
 body{
-  min-height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;
-  font-family:Georgia,serif;color:#4a2940;
-  background:radial-gradient(circle at 50% 10%,#fff0f6 0,#ffd5e5 35%,#d9b4f2 100%);
+  font-family:"Courier New",monospace;
+  color:#00ff88;
+  background:
+    radial-gradient(circle at 50% 45%,#062d1c 0%,#01130c 28%,#000 70%);
 }
-.bg-heart{position:absolute;bottom:-40px;opacity:.55;animation:float linear infinite;pointer-events:none}
-@keyframes float{to{transform:translateY(-115vh) rotate(360deg);opacity:0}}
-.scene{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center}
+
+/* ===== BACKGROUND ===== */
+
+.scene{
+  position:relative;
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(0,255,120,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,120,.025) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+/* scanlines */
+
+.scene:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,255,120,.025) 4px
+  );
+  z-index:20;
+}
+
+/* glow */
+
+.scene:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center,transparent 20%,rgba(0,0,0,.65) 100%);
+  z-index:19;
+}
+
+/* ===== MATRIX CODE ===== */
+
+.matrix{
+  position:absolute;
+  top:-100px;
+  color:#00ff66;
+  opacity:.18;
+  font-size:15px;
+  line-height:22px;
+  white-space:pre;
+  animation:matrixFall linear infinite;
+  pointer-events:none;
+}
+
+@keyframes matrixFall{
+  from{
+    transform:translateY(-100px);
+  }
+  to{
+    transform:translateY(120vh);
+  }
+}
+
+/* ===== TERMINAL TEXT ===== */
+
+.terminal{
+  position:absolute;
+  top:28px;
+  left:32px;
+  color:#00ff88;
+  font-size:14px;
+  line-height:1.7;
+  text-shadow:0 0 8px #00ff88;
+  z-index:5;
+}
+
+.terminal span{
+  display:block;
+}
+
+.warning{
+  color:#00cc66;
+}
+
+/* ===== SIDE BOXES ===== */
+
+.side-box{
+  position:absolute;
+  border:1px solid #00ff88;
+  color:#00ff88;
+  padding:14px 18px;
+  background:#00140caa;
+  box-shadow:
+    0 0 15px #00ff8820,
+    inset 0 0 15px #00ff8810;
+  font-size:13px;
+  z-index:5;
+}
+
+.left-box{
+  left:30px;
+  bottom:35px;
+}
+
+.right-box{
+  right:30px;
+  bottom:35px;
+}
+
+/* ===== ENVELOPE ===== */
+
 .envelope{
-  position:absolute;width:340px;height:225px;border-radius:10px;cursor:pointer;
-  background:#fff3f7;box-shadow:0 25px 60px #693d5640;
-  transition:transform .9s ease,opacity .9s ease;
+  position:absolute;
+  width:340px;
+  height:225px;
+  border-radius:8px;
+  cursor:pointer;
+
+  background:#050908;
+
+  border:1px solid #777;
+
+  box-shadow:
+    0 0 8px #00ff8840,
+    0 20px 70px #000;
+
+  transition:
+    transform .9s ease,
+    opacity .9s ease;
+
+  z-index:10;
 }
-.envelope:hover{transform:scale(1.045) rotate(-1deg)}
+
+.envelope:hover{
+  transform:scale(1.045);
+  box-shadow:
+    0 0 25px #00ff88,
+    0 25px 80px #000;
+}
+
+/* envelope pocket */
+
 .pocket{
-  position:absolute;inset:0;background:#f4adc5;
-  clip-path:polygon(0 0,50% 57%,100% 0,100% 100%,0 100%);z-index:3;border-radius:10px;
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #101714,
+      #030605
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      50% 57%,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+
+  border-radius:8px;
+  z-index:3;
 }
+
+/* envelope lines */
+
+.pocket:after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      145deg,
+      transparent 49.5%,
+      #00ff8845 50%,
+      transparent 50.5%
+    ),
+    linear-gradient(
+      215deg,
+      transparent 49.5%,
+      #00ff8845 50%,
+      transparent 50.5%
+    );
+}
+
+/* flap */
+
 .flap{
-  position:absolute;inset:0;background:#ffc6d9;clip-path:polygon(0 0,100% 0,50% 58%);
-  transform-origin:top;transition:transform 1s cubic-bezier(.2,.8,.2,1);z-index:5;
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151b18,
+      #020403
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 58%
+    );
+
+  transform-origin:top;
+
+  transition:
+    transform 1s cubic-bezier(.2,.8,.2,1);
+
+  border-radius:8px;
+
+  z-index:5;
 }
+
+/* green flap edge */
+
+.flap:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:2px;
+  background:#00ff88;
+  box-shadow:0 0 10px #00ff88;
+}
+
+/* ===== SEAL ===== */
+
 .seal{
-  position:absolute;left:50%;top:88px;transform:translateX(-50%);
-  width:62px;height:62px;border-radius:50%;background:#e84e7c;color:white;
-  display:flex;align-items:center;justify-content:center;font-size:30px;
-  box-shadow:0 7px 18px #7b284750;z-index:10;transition:.55s;
+  position:absolute;
+  left:50%;
+  top:88px;
+
+  transform:translateX(-50%);
+
+  width:62px;
+  height:62px;
+
+  border-radius:50%;
+
+  background:#020604;
+
+  border:2px solid #00ff88;
+
+  color:#00ff88;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:29px;
+
+  box-shadow:
+    0 0 12px #00ff88,
+    inset 0 0 15px #00ff8840;
+
+  z-index:10;
+
+  transition:.55s;
 }
+
+.envelope:hover .seal{
+  box-shadow:
+    0 0 25px #00ff88,
+    inset 0 0 20px #00ff8860;
+}
+
+/* ===== HINT ===== */
+
 .hint{
-  position:absolute;bottom:-58px;left:50%;transform:translateX(-50%);
-  white-space:nowrap;font:16px Arial,sans-serif;color:#673c57;animation:pulse 1.8s infinite
+  position:absolute;
+
+  bottom:-58px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  white-space:nowrap;
+
+  font-size:16px;
+
+  color:#00ff88;
+
+  text-shadow:0 0 8px #00ff88;
+
+  animation:pulse 1.7s infinite;
+
+  z-index:30;
 }
-@keyframes pulse{50%{opacity:.4}}
-.open .flap{transform:rotateX(180deg)}
-.open .seal{opacity:0;transform:translateX(-50%) scale(0)}
-.open .envelope{transform:translateY(330px) rotate(5deg) scale(.45);opacity:0}
+
+@keyframes pulse{
+  50%{
+    opacity:.35;
+  }
+}
+
+/* ===== OPEN ANIMATION ===== */
+
+.open .flap{
+  transform:rotateX(180deg);
+}
+
+.open .seal{
+  opacity:0;
+  transform:
+    translateX(-50%)
+    scale(0);
+}
+
+.open .envelope{
+  transform:
+    translateY(330px)
+    rotate(5deg)
+    scale(.45);
+
+  opacity:0;
+}
+
+/* ===== LETTER ===== */
+
 .letter{
-  position:absolute;width:min(88vw,680px);max-height:78vh;overflow:auto;
-  padding:48px;background:#fffdf8;border-radius:14px;
-  box-shadow:0 30px 80px #4d304040;
-  opacity:0;transform:translateY(90px) scale(.72);
-  pointer-events:none;transition:opacity 1s .45s,transform 1s .45s cubic-bezier(.16,1,.3,1);
+  position:absolute;
+
+  width:min(88vw,680px);
+  max-height:78vh;
+
+  overflow:auto;
+
+  padding:48px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #030805,
+      #07130d
+    );
+
+  border:1px solid #00ff88;
+
+  border-radius:4px;
+
+  box-shadow:
+    0 0 35px #00ff8830,
+    0 30px 100px #000;
+
+  opacity:0;
+
+  transform:
+    translateY(90px)
+    scale(.72);
+
+  pointer-events:none;
+
+  transition:
+    opacity 1s .45s,
+    transform 1s .45s cubic-bezier(.16,1,.3,1);
+
+  z-index:30;
 }
-.letter.show{opacity:1;transform:none;pointer-events:auto}
-.letter h1{text-align:center;color:#d94772;font-size:36px;margin-bottom:28px}
-.letter p{font-size:21px;line-height:1.8;margin:14px 0}
-.signature{text-align:right;color:#d94772;font-size:20px;margin-top:30px}
-.close{display:block;margin:28px auto 0;border:0;border-radius:999px;padding:10px 20px;background:#f3b2c9;color:#54283e;cursor:pointer}
-@media(max-width:600px){.envelope{width:285px;height:190px}.letter{padding:28px}.letter h1{font-size:29px}.letter p{font-size:18px}}
+
+.letter.show{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+
+/* corner effect */
+
+.letter:before,
+.letter:after{
+  content:"";
+  position:absolute;
+  width:35px;
+  height:35px;
+  border-color:#00ff88;
+}
+
+.letter:before{
+  top:-1px;
+  left:-1px;
+  border-top:2px solid;
+  border-left:2px solid;
+}
+
+.letter:after{
+  bottom:-1px;
+  right:-1px;
+  border-bottom:2px solid;
+  border-right:2px solid;
+}
+
+/* title */
+
+.letter h1{
+  text-align:center;
+
+  color:#00ff88;
+
+  font-size:36px;
+
+  margin-bottom:28px;
+
+  text-shadow:
+    0 0 8px #00ff88,
+    0 0 20px #00ff8860;
+}
+
+/* divider */
+
+.letter h1:after{
+  content:"";
+  display:block;
+
+  width:80%;
+  height:1px;
+
+  margin:15px auto 0;
+
+  background:#00ff88;
+
+  box-shadow:0 0 8px #00ff88;
+}
+
+/* paragraphs */
+
+.letter p{
+  font-size:20px;
+  line-height:1.8;
+  margin:14px 0;
+
+  color:#d8ffe9;
+
+  text-shadow:0 0 5px #00ff8820;
+}
+
+.letter strong{
+  color:#00ff88;
+}
+
+/* signature */
+
+.signature{
+  text-align:right;
+
+  color:#00ff88;
+
+  font-size:19px;
+
+  margin-top:30px;
+
+  text-shadow:0 0 8px #00ff88;
+}
+
+/* close button */
+
+.close{
+  display:block;
+
+  margin:28px auto 0;
+
+  border:1px solid #00ff88;
+
+  border-radius:3px;
+
+  padding:11px 24px;
+
+  background:#001b0f;
+
+  color:#00ff88;
+
+  font-family:"Courier New",monospace;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  box-shadow:
+    0 0 10px #00ff8820;
+}
+
+.close:hover{
+  background:#00ff88;
+  color:#001008;
+
+  box-shadow:
+    0 0 25px #00ff88;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:600px){
+
+  .envelope{
+    width:285px;
+    height:190px;
+  }
+
+  .letter{
+    padding:28px;
+    width:90vw;
+  }
+
+  .letter h1{
+    font-size:29px;
+  }
+
+  .letter p{
+    font-size:17px;
+  }
+
+  .terminal{
+    left:15px;
+    top:15px;
+    font-size:11px;
+  }
+
+  .side-box{
+    display:none;
+  }
+
+  .hint{
+    font-size:14px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="bg-heart" style="left:8%;animation-duration:9s;font-size:25px">♥</div>
-<div class="bg-heart" style="left:22%;animation-duration:12s;font-size:20px">♡</div>
-<div class="bg-heart" style="left:43%;animation-duration:10s;font-size:28px">♥</div>
-<div class="bg-heart" style="left:67%;animation-duration:13s;font-size:22px">♡</div>
-<div class="bg-heart" style="left:86%;animation-duration:8s;font-size:27px">♥</div>
 
 <div class="scene" id="scene">
-  <div class="envelope" id="envelope" aria-label="Open the letter">
-    <div class="pocket"></div>
-    <div class="flap"></div>
-    <div class="seal">♥</div>
-    <div class="hint">Click the letter 💌</div>
+
+  <!-- MATRIX BACKGROUND -->
+
+  <div class="matrix" style="left:5%;animation-duration:9s">
+0 1 1 0 1<br>
+1 0 0 1 0<br>
+0 1 1 1 0<br>
+1 1 0 0 1<br>
+0 0 1 1 0
   </div>
 
+  <div class="matrix" style="left:17%;animation-duration:12s">
+1<br>0<br>1<br>1<br>0<br>0<br>1<br>0<br>1
+  </div>
+
+  <div class="matrix" style="left:30%;animation-duration:8s">
+A7 F2 9D<br>
+03 77 B1<br>
+C8 21 5F<br>
+00 FF 88
+  </div>
+
+  <div class="matrix" style="left:45%;animation-duration:11s">
+0 1 0 1<br>
+1 1 0 0<br>
+0 0 1 1<br>
+1 0 1 0
+  </div>
+
+  <div class="matrix" style="left:60%;animation-duration:10s">
+7 3 9 1<br>
+0 0 8 4<br>
+2 1 6 5<br>
+9 7 0 3
+  </div>
+
+  <div class="matrix" style="left:75%;animation-duration:13s">
+1 0 1 0 1<br>
+0 1 0 1 0<br>
+1 1 1 0 0<br>
+0 0 1 1 1
+  </div>
+
+  <div class="matrix" style="left:90%;animation-duration:9s">
+F1<br>
+A8<br>
+09<br>
+C4<br>
+77
+  </div>
+
+
+  <!-- TERMINAL -->
+
+  <div class="terminal">
+    <span>&gt; accessing server...</span>
+    <span>&gt; connection established.</span>
+    <span>&gt; welcome to the dark web...</span>
+    <span class="warning">&gt; encrypted message detected.</span>
+  </div>
+
+
+  <!-- SIDE INFORMATION -->
+
+  <div class="side-box left-box">
+    DARK WEB<br>
+    ───────────<br>
+    PRIVATE CHANNEL
+  </div>
+
+  <div class="side-box right-box">
+    REAL FEELINGS<br>
+    DON'T NEED A NETWORK<br>
+    ───────────
+  </div>
+
+
+  <!-- ENVELOPE -->
+
+  <div
+    class="envelope"
+    id="envelope"
+    aria-label="Open the letter"
+  >
+
+    <div class="pocket"></div>
+
+    <div class="flap"></div>
+
+    <div class="seal">♥</div>
+
+    <div class="hint">
+      Click the letter ✉
+    </div>
+
+  </div>
+
+
+  <!-- LETTER -->
+
   <article class="letter" id="letter">
-    <h1>For You ❤️</h1>
-    <p><strong>AAPKE SAARE PAISE hamare HUE 🐷</strong></p>
-    <p>CHECK YOUR BANK ACCOUNT </p>
-    <div class="signature">— Tech interio</div>
-    <button class="close" id="close">Close letter</button>
+
+    <h1>For You ♡</h1>
+
+    <p>
+      <strong>
+        AAPKA ACCOUNT HACK HO GAYA H 
+      </strong>
+    </p>
+
+    <p>
+      CHECK YOUR BANK ACCOUNT
+    </p>
+
+    <div class="signature">
+      — TECH INTERIO 
+    </div>
+
+    <button
+      class="close"
+      id="close"
+    >
+      [ Close letter ]
+    </button>
+
   </article>
+
 </div>
 
-<script>
-const scene=document.getElementById('scene');
-const envelope=document.getElementById('envelope');
-const letter=document.getElementById('letter');
-const close=document.getElementById('close');
 
-envelope.addEventListener('click',()=>{
-  scene.classList.add('open');
-  setTimeout(()=>letter.classList.add('show'),700);
+<script>
+
+const scene =
+  document.getElementById("scene");
+
+const envelope =
+  document.getElementById("envelope");
+
+const letter =
+  document.getElementById("letter");
+
+const close =
+  document.getElementById("close");
+
+
+/* OPEN */
+
+envelope.addEventListener("click",()=>{
+
+  scene.classList.add("open");
+
+  setTimeout(()=>{
+    letter.classList.add("show");
+  },700);
+
 });
-close.addEventListener('click',()=>{
-  letter.classList.remove('show');
-  setTimeout(()=>scene.classList.remove('open'),500);
+
+
+/* CLOSE */
+
+close.addEventListener("click",()=>{
+
+  letter.classList.remove("show");
+
+  setTimeout(()=>{
+    scene.classList.remove("open");
+  },500);
+
 });
+
 </script>
+
 </body>
 </html>
